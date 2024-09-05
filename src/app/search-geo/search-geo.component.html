@@ -1,9 +1,163 @@
-<div class="card flex justify-content-center">
-  <p-multiSelect
-    [options]="cities"
-    [(ngModel)]="selectedCities"
-    placeholder="Select Cities"
-    optionLabel="name"
-    display="chip"
-    [showClear]="true" />
-</div>
+<p-card class="main-card" [style]="{'background-color': '#f0f0f0'}">
+  <div class="card-header">
+    <span class="header-title">Search Geo Objects</span>
+    <div class="header-icons">
+      <i class="pi pi-window-minimize" (click)="_()"></i>
+      <i class="pi pi-thumbtack" (click)="_()"></i>
+    </div>
+  </div>
+  <p-card class="inner-card" [style]="{'background-color': '#ffffff'}">
+    <div class="inner-card-header">
+      <p-multiSelect
+        [options]="typesData"
+        [(ngModel)]="selectedTypes"
+        placeholder="Select Types"
+        optionLabel="name"
+        display="chip"
+        [showClear]="true"
+        (onChange)="onSelectionChange()"/>
+      <div class="divider"></div>
+      <div class="search-container">
+        <input type="text" placeholder="Search..." class="search-input" (input)="onSearchInput($event)">
+        <i class="pi pi-filter search-icon"></i>
+      </div>
+    </div>
+    <div class="inner-card-content">
+
+      <!--      <div class="card flex justify-content-center">-->
+      <!--        <p-accordion [activeIndex]="0" multiple="true">-->
+      <!--          <p-accordionTab header="Zones">-->
+      <!--            <p-accordion [activeIndex]="0" multiple="true">-->
+      <!--              <p-accordionTab>-->
+      <!--                <ng-template pTemplate="header">-->
+      <!--                  <div class="custom-card">-->
+      <!--                    <p-checkbox-->
+      <!--                      [(ngModel)]="isChecked"-->
+      <!--                      inputId="headerCheckbox"-->
+      <!--                      class="header-checkbox"-->
+      <!--                      [binary]="true"/>-->
+      <!--                    <span>Zone1</span>-->
+      <!--                  </div>-->
+      <!--                </ng-template>-->
+
+      <!--                <div class="custom-card">-->
+      <!--                  <div class="custom-card-header">-->
+      <!--                    <p-checkbox-->
+      <!--                      [(ngModel)]="isChecked"-->
+      <!--                      [binary]="true"-->
+      <!--                      inputId="binary"/>-->
+      <!--                    <i class="pi pi-filter"></i>-->
+      <!--                    <div class="text-content">-->
+      <!--                      <div class="title">Title Here</div>-->
+      <!--                      <div class="description">Description goes here. This is where additional details can be-->
+      <!--                        provided.-->
+      <!--                      </div>-->
+      <!--                    </div>-->
+      <!--                    <p-badge value="Badge" class="badge"></p-badge>-->
+      <!--                    <i class="icon-right pi pi-filter"></i>-->
+      <!--                  </div>-->
+      <!--                </div>-->
+      <!--                <div class="custom-card">-->
+      <!--                  <div class="custom-card-header">-->
+      <!--                    <p-checkbox-->
+      <!--                      [(ngModel)]="isChecked"-->
+      <!--                      [binary]="true"-->
+      <!--                      inputId="binary"/>-->
+      <!--                    <i class="pi pi-filter"></i>-->
+      <!--                    <div class="text-content">-->
+      <!--                      <div class="title">Title Here</div>-->
+      <!--                      <div class="description">Description goes here. This is where additional details can be-->
+      <!--                        provided.-->
+      <!--                      </div>-->
+      <!--                    </div>-->
+      <!--                    <p-badge value="Badge" class="badge"></p-badge>-->
+      <!--                    <i class="icon-right pi pi-filter"></i>-->
+      <!--                  </div>-->
+      <!--                </div>-->
+      <!--              </p-accordionTab>-->
+      <!--              <p-accordionTab header="Zone 2">-->
+      <!--              </p-accordionTab>-->
+      <!--            </p-accordion>-->
+      <!--          </p-accordionTab>-->
+      <!--          <p-accordionTab header="Sites">-->
+      <!--            <p>-->
+      <!--              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam-->
+      <!--              rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt-->
+      <!--              explicabo. Nemo enim-->
+      <!--              ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos-->
+      <!--              qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.-->
+      <!--            </p>-->
+      <!--          </p-accordionTab>-->
+      <!--          <p-accordionTab header="Placemarks">-->
+      <!--            <p>-->
+      <!--              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti-->
+      <!--              atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique-->
+      <!--              sunt in culpa-->
+      <!--              qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et-->
+      <!--              expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo-->
+      <!--              minus.-->
+      <!--            </p>-->
+      <!--          </p-accordionTab>-->
+      <!--          <p-accordionTab header="Layers">-->
+      <!--            <p>-->
+      <!--              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti-->
+      <!--              atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique-->
+      <!--              sunt in culpa-->
+      <!--              qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et-->
+      <!--              expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo-->
+      <!--              minus.-->
+      <!--            </p>-->
+      <!--          </p-accordionTab>-->
+      <!--        </p-accordion>-->
+      <!--      </div>-->
+      <div class="card flex justify-content-center">
+        <p-accordion multiple="true">
+          <ng-container *ngFor="let type of sensorsData | keyvalue">
+            <!-- Top-level accordion tab for each type -->
+            <p-accordionTab [header]="type.value.name">
+              <p-accordion multiple="true">
+                <ng-container *ngFor="let subType of type.value.subType | keyvalue">
+                  <!-- Nested accordion tab for each subtype -->
+                  <p-accordionTab>
+                    <ng-template pTemplate="header">
+                      <div class="custom-card">
+                        <p-checkbox
+                          [(ngModel)]="isChecked"
+                          inputId="headerCheckbox"
+                          class="header-checkbox"
+                          [binary]="true"/>
+                        <span>{{ subType.value.name }}</span>
+                      </div>
+                    </ng-template>
+
+                    <ng-container *ngFor="let sensor of subType.value.sensors">
+                      <div class="custom-card">
+                        <div class="custom-card-header">
+                          <p-checkbox
+                            [(ngModel)]="isChecked"
+                            [binary]="true"
+                            inputId="binary"/>
+                          <i class="pi pi-filter"></i>
+                          <div class="text-content">
+                            <div class="title">{{ sensor.name }}</div>
+                            <div class="description">
+                              Connection State:
+                              {{ sensor.connectionState || 'N/A' }}
+                            </div>
+                          </div>
+                          <p-badge value="Badge" class="badge"></p-badge>
+                          <i class="icon-right pi pi-filter"></i>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </p-accordionTab>
+                </ng-container>
+              </p-accordion>
+            </p-accordionTab>
+          </ng-container>
+        </p-accordion>
+      </div>
+
+    </div>
+  </p-card>
+</p-card>
